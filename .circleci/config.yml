@@ -6,9 +6,6 @@ jobs:
     steps:
       - checkout  # Check out the code from the repository
       - run:
-          name: Install dependencies
-          command: pip install -r requirements.txt  # Replace with your Python dependencies if needed
-      - run:
           name: Run tests
           command: python3 hello.py  # Replace with the command to run your tests
 
