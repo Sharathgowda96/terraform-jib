@@ -17,37 +17,11 @@ jobs:
     requires:
       - build-and-test
 
-  deploy-to-staging:
-    docker:
-      - image: circleci/python:3.9  # Choose an appropriate Docker image with your desired environment.
-    steps:
-      - checkout  # Check out the code from the repository
-      - run:
-          name: Install dependencies
-          command: pip install -r requirements.txt  # Replace with your Python dependencies if needed
-      - run:
-          name: Deploy to Staging
-          command: python3 hello.py  # Replace with the command to deploy to your staging environment
-
 workflows:
   version: 2
   feature-branch-workflow:
     jobs:
       - build-and-test:
-          filters:
-            branches:
-              only:
-                - feature  # Replace with the name of your feature branch.
-
-      - manual-approval:
-          filters:
-            branches:
-              only:
-                - feature  # Replace with the name of your feature branch.
-
-      - deploy-to-staging:
-          requires:
-            - manual-approval
           filters:
             branches:
               only:
