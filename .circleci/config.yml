@@ -12,10 +12,6 @@ jobs:
           name: Run tests
           command: python3 hello.py  # Replace with the command to run your tests
 
-  manual-approval:
-    type: approval
-    requires:
-      - build-and-test
 
 workflows:
   version: 2
