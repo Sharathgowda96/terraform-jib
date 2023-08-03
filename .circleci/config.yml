@@ -1,0 +1,33 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@0.3.2
+  terraform: circleci/terraform@2.0.0
+
+executors:
+  base:
+    docker:
+      - image: cimg/base:stable
+
+
+workflows:
+  deploy_infra:
+    jobs:
+    - terraform/validate:
+        checkout: true
+        context: terraform
+    - terraform/plan:
+        checkout: true
+        context: terraform
+        persist-workspace: true
+        requires:
+        - terraform/validate
+    - terraform/apply:
+        attach-workspace: true
+        context: terraform
+        filters:
+          branches:
+            only: main
+        requires:
+        - terraform/plan
+
