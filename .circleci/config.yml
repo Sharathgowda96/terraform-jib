@@ -2,7 +2,7 @@ version: 2.1
 
 # Define your workflows, jobs, and steps here
 jobs:
-  build:
+  deploy:
     docker:
       - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
 
@@ -36,11 +36,7 @@ jobs:
           name: Terraform init
           command: |
             terraform init
-  deploy:
-    docker:
-     - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
-    steps:
-      - checkout
+ 
       - run:
           name: Terraform Apply
           command: |
