@@ -9,20 +9,20 @@ variable "aws_region" {
 
 variable "s3_bucket_name" {
   type    = string
-  default = "s3_bucket_terra"
+  default = "s3_bucketterra"
 }
 
 variable "aws_iam_policy_attachment" {
   type    = string
-  default = "s3_full_access_attachment"
+  default = "s3_full_accessattachment"
 }
 
 variable "aws_iam_policy" {
   type    = string
-  default = "s3_full_access"
+  default = "s3_fullaccess"
 }
 
-variable "aws_iam_role " {
+variable "aws_iam_role" {
   type    = string
-  default = "S3FullAccessRole"
+  default = "S3_Full_AccessRole"
 }
