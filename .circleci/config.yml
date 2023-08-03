@@ -36,17 +36,17 @@ jobs:
           name: Terraform Init
           command: |
             terraform init
+            terraform fmt
+            terraform validate
 
       # Run terraform plan to preview changes
       - run:
           name: Terraform Plan
           command: |
-            cd /Users/sharathr/terraform-jib
             terraform plan -out=tfplan
 
       # Run terraform apply to deploy IAM role and S3 bucket
       - run:
           name: Terraform Apply
           command: |
-            cd /Users/sharathr/terraform-jib
             terraform apply tfplan -auto-approve
