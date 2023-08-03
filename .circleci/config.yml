@@ -42,3 +42,12 @@ jobs:
           name: Terraform Plan
           command: |
             terraform plan
+
+workflow:
+  version: 2
+  test_build_deploy:
+    - build:
+          filters:
+            branches:
+              only:
+                - feature
