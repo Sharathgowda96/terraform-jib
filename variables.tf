@@ -7,17 +7,17 @@ variable "aws_region" {
   default = "us-west-1"
 }
 
-variable "instance_profile_name" {
+variable "aws_iam_policy_attachment" {
   type    = string
-  default = "example-instance-profile"
+  default = "s3_full_access_attachment"
 }
 
-variable "iam_policy_name" {
+variable "aws_iam_policy" {
   type    = string
-  default = "example-policy"
+  default = "s3_full_access"
 }
 
-variable "role_name" {
+variable "aws_iam_role " {
   type    = string
-  default = "example-role"
+  default = "S3FullAccessRole"
 }
