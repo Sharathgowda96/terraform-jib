@@ -25,7 +25,7 @@ jobs:
             aws configure set aws_access_key_id $Access_Key
             aws configure set aws_secret_access_key $Secret_Access_Key
             aws configure set default.region us-west-1  # Replace with your desired region
-    deploy:
+  deploy:
     docker:
       - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
     steps:
