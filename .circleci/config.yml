@@ -38,13 +38,7 @@ jobs:
             terraform init
             terraform fmt
             terraform validate
-
-
       - run:
           name: Terraform Plan
           command: |
             terraform plan
-      - run:
-          name: Terraform apply
-          command: |
-            terraform apply -auto-approve
