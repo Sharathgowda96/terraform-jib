@@ -24,7 +24,15 @@ jobs:
             # Replace <your_access_key_id> and <your_secret_access_key> with environment variables
             aws configure set aws_access_key_id $Access_Key
             aws configure set aws_secret_access_key $Secret_Access_Key
-            aws configure set default.region us-west-1  # Replace with your desired region            
+            aws configure set default.region us-west-1  # Replace with your desired region
+
+            - run:
+          name: Install Terraform
+          command: |
+            curl "https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip" -o "terraform.zip"
+            unzip terraform.zip
+            sudo mv terraform /usr/local/bin/
+            
       - run:
           name: Terraform Destroy
           command: |
