@@ -2,7 +2,7 @@ version: 2.1
 
 # Define your workflows, jobs, and steps here
 jobs:
-  deploy:
+  build:
     docker:
       - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
 
@@ -16,7 +16,12 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
+  deploy:
+    docker:
+      - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
 
+    steps:
+      - checkout
       # Configure AWS credentials
       - run:
           name: Configure AWS credentials
@@ -45,8 +50,13 @@ jobs:
 workflow:
   version: 2
   test_build_deploy:
-    - deploy:
+    - build:
           filters:
             branches:
               only:
                 - main
+    - deploy:
+          filter:
+            branches:
+              only:
+                -main
