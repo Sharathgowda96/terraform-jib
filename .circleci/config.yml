@@ -62,8 +62,3 @@ workflow:
             branches:
               only:
                 - feature
-    - deploy:
-          filters:
-            branches:
-              only:
-                - main
