@@ -44,7 +44,7 @@ resource "aws_iam_role" "s3_role" {
         Action = "sts:AssumeRole"
         Effect = "Allow"
         Principal = {
-          Service = "ec2.amazonaws.com"
+          Service = "s3.amazonaws.com"
         }
       }
     ]
