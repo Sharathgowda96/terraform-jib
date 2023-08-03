@@ -54,12 +54,7 @@ jobs:
 
 workflow:
   version: 2
-  test_build_deploy:
-    - build:
-          filters:
-            branches:
-              only:
-                - feature
+  build_deploy:
     - deploy:
           filters:
             branches:
