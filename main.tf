@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "onebucket" {
-  bucket = "s3-with-terra"
+  bucket = "s3-with-tera"
   acl    = "private"
   versioning {
     enabled = true
