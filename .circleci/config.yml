@@ -54,7 +54,7 @@ workflow:
           filters:
             branches:
               only:
-                - main
+                - feature
     - deploy:
           filter:
             branches:
