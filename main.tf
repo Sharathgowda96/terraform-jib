@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "onebucket" {
 }
 
 resource "aws_iam_policy" "s3_full_access" {
-  name = "s3_full_access"
+  name = var.aws_iam_policy
 
   policy = <<EOF
 {
@@ -36,7 +36,7 @@ EOF
 }
 
 resource "aws_iam_role" "s3_role" {
-  name = "S3FullAccessRole"
+  name = var.aws_iam_role
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -52,7 +52,7 @@ resource "aws_iam_role" "s3_role" {
 }
 
 resource "aws_iam_policy_attachment" "s3_full_access_attachment" {
-  name       = "s3_full_access_attachment"
+  name       = var.aws_iam_policy_attachment
   policy_arn = aws_iam_policy.s3_full_access.arn
   roles      = [aws_iam_role.s3_role.name]
 }
