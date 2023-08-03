@@ -36,7 +36,21 @@ jobs:
           name: Terraform init
           command: |
             terraform init
+  deploy:
+    docker:
+     - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
+    steps:
+      - checkout
       - run:
           name: Terraform Apply
           command: |
             terraform apply -auto-approve
+
+workflow:
+  version: 2
+  test_build_deploy:
+    - deploy:
+          filters:
+            branches:
+              only:
+                - main
