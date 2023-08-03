@@ -44,9 +44,6 @@ jobs:
             terraform plan
 
   deploy:
-    docker:
-      - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
-
     steps:
       - checkout
       - run:
