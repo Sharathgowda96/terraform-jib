@@ -7,6 +7,11 @@ variable "aws_region" {
   default = "us-west-1"
 }
 
+variable "s3_bucket_name" {
+  type    = string
+  default = "s3_bucket_terra"
+}
+
 variable "aws_iam_policy_attachment" {
   type    = string
   default = "s3_full_access_attachment"
