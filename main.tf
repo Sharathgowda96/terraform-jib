@@ -26,8 +26,8 @@ resource "aws_iam_policy" "s3_full_access" {
         "s3:ListBucket"
       ],
       "Resource": [
-        "arn:aws:s3:::testing-s3-with-terraform",
-        "arn:aws:s3:::testing-s3-with-terraform/*"
+        "arn:aws:s3:::s3-terra",
+        "arn:aws:s3:::s3-terra/*"
       ]
     }
   ]
