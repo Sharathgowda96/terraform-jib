@@ -4,20 +4,25 @@ variable "username" {
 }
 
 variable "aws_region" {
-  default = "us-east-1"
+  default = "us-west-1"
 }
 
-variable "instance_profile_name" {
+variable "s3_bucket_name" {
   type    = string
-  default = "example-instance-profile"
+  default = "s3_bucketterra"
 }
 
-variable "iam_policy_name" {
+variable "aws_iam_policy_attachment" {
   type    = string
-  default = "example-policy"
+  default = "s3_full_accessattachment"
 }
 
-variable "role_name" {
+variable "aws_iam_policy" {
   type    = string
-  default = "example-role"
+  default = "s3_fullaccess"
+}
+
+variable "aws_iam_role" {
+  type    = string
+  default = "S3_Full_AccessRole"
 }
