@@ -52,10 +52,18 @@ jobs:
           command: |
             terraform apply -auto-approve
 
-workflow:
+workflows:
   version: 2
   build_deploy:
-    - deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - main
+      - deploy:
+          requires:
+            - build
           filters:
             branches:
               only:
