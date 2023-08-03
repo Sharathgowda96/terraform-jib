@@ -16,12 +16,7 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
-  deploy:
-    docker:
-      - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
 
-    steps:
-      - checkout
       # Configure AWS credentials
       - run:
           name: Configure AWS credentials
@@ -41,7 +36,19 @@ jobs:
           name: Terraform init
           command: |
             terraform init
- 
+            terraform fmt
+            terraform validate
+      - run:
+          name: Terraform Plan
+          command: |
+            terraform plan
+
+  deploy:
+    docker:
+      - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
+
+    steps:
+      - checkout
       - run:
           name: Terraform Apply
           command: |
@@ -56,7 +63,7 @@ workflow:
               only:
                 - feature
     - deploy:
-          filter:
+          filters:
             branches:
               only:
-                -main
+                - main
