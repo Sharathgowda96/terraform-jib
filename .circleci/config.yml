@@ -21,7 +21,10 @@ jobs:
       - run:
           name: Configure AWS credentials
           command: |
-            aws configure set default.region us-west-2  # Replace with your desired region
+            # Replace <your_access_key_id> and <your_secret_access_key> with environment variables
+            aws configure set aws_access_key_id $Access_Key
+            aws configure set aws_secret_access_key $Secret_Access_Key
+            aws configure set default.region us-west-1  # Replace with your desired region
 
       # Install Terraform (if needed)
       - run:
