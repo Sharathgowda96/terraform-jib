@@ -36,16 +36,14 @@ jobs:
           name: Terraform init
           command: |
             terraform init
-feature
             terraform fmt
             terraform validate
 
-      # Run terraform plan to preview changes
+
       - run:
           name: Terraform Plan
           command: |
             terraform plan
-main
       - run:
           name: Terraform apply
           command: |
