@@ -1,33 +1,53 @@
 version: 2.1
 
-orbs:
-  python: circleci/python@0.3.2
-  terraform: circleci/terraform@2.0.0
-
-executors:
-  base:
+# Define your workflows, jobs, and steps here
+jobs:
+  build:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
 
+    steps:
+      - checkout  # Checkout your project code from version control
 
-workflows:
-  deploy_IAM:
-    jobs:
-    - terraform/validate:
-        checkout: true
-        context: terraform
-    - terraform/plan:
-        checkout: true
-        context: terraform
-        persist-workspace: true
-        requires:
-        - terraform/validate
-    - terraform/apply:
-        attach-workspace: true
-        context: terraform
-        filters:
-          branches:
-            only: main
-        requires:
-        - terraform/plan
+      # Install AWS CLI (if needed)
+      - run:
+          name: Install AWS CLI
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
 
+      # Configure AWS credentials
+      - run:
+          name: Configure AWS credentials
+          command: |
+            aws configure set default.region us-west-2  # Replace with your desired region
+
+      # Install Terraform (if needed)
+      - run:
+          name: Install Terraform
+          command: |
+            curl "https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip" -o "terraform.zip"
+            unzip terraform.zip
+            sudo mv terraform /usr/local/bin/
+
+      # Run terraform init
+      - run:
+          name: Terraform Init
+          command: |
+            cd /Users/sharathr/terraform-jib
+            terraform init
+
+      # Run terraform plan to preview changes
+      - run:
+          name: Terraform Plan
+          command: |
+            cd /Users/sharathr/terraform-jib
+            terraform plan -out=tfplan
+
+      # Run terraform apply to deploy IAM role and S3 bucket
+      - run:
+          name: Terraform Apply
+          command: |
+            cd /Users/sharathr/terraform-jib
+            terraform apply tfplan -auto-approve
