@@ -4,7 +4,7 @@ variable "username" {
 }
 
 variable "aws_region" {
-  default = "us-east-1"
+  default = "us-west-1"
 }
 
 variable "instance_profile_name" {
