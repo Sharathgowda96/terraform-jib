@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      terraform: circleci/terraform@2.0.0 # Replace with an appropriate Docker image for your project
+      - terraform: circleci/terraform@2.0.0 # Replace with an appropriate Docker image for your project
 
     steps:
       - checkout  # Checkout your project code from version control
