@@ -47,14 +47,14 @@ jobs:
           name: Terraform Plan
           command: |
             terraform plan
+            
+      - run:
+          name: Terraform Destroy
+          command: |
+            terraform destroy -auto-approve
 
       # Run terraform apply to deploy IAM role and S3 bucket
       - run:
           name: Terraform Apply
           command: |
             terraform apply -auto-approve
-
-      - run:
-          name: Terraform Destroy
-          command: |
-            terraform destroy -auto-approve
