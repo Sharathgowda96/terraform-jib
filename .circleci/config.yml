@@ -46,10 +46,10 @@ jobs:
       - run:
           name: Terraform Plan
           command: |
-            terraform plan -out=tfplan
+            terraform plan
 
       # Run terraform apply to deploy IAM role and S3 bucket
       - run:
           name: Terraform Apply
           command: |
-            terraform apply tfplan -auto-approve
+            terraform apply -auto-approve
