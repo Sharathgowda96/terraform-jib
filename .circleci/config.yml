@@ -60,7 +60,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - main
+                - feature
       - deploy:
           requires:
             - build
