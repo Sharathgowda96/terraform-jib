@@ -101,7 +101,13 @@ jobs:
             curl -o terraform.zip "${TERRAFORM_URL}"
             unzip terraform.zip
             sudo mv terraform /usr/local/bin/
-      # Add your test steps here...
+      - run:
+          name: Configure AWS credentials
+          command: |
+            # Replace <your_access_key_id> and <your_secret_access_key> with environment variables
+            aws configure set aws_access_key_id $Access_Key
+            aws configure set aws_secret_access_key $Secret_Access_Key
+            aws configure set default.region us-west-1  # Replace with your desired region
 
   deploy:
     docker:
@@ -120,13 +126,13 @@ workflows:
   version: 2
   build_test_and_deploy:
     jobs:
-      - build:
+      - test:
           filters:
             branches:
               only:
                 - main
                 - feature
-      - test:
+      - build:
           filters:
             branches:
               only:
