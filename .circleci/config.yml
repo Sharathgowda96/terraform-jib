@@ -102,6 +102,12 @@ jobs:
             unzip terraform.zip
             sudo mv terraform /usr/local/bin/
       - run:
+#           name: Install AWS CLI
+#           command: |
+#             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+#             unzip awscliv2.zip
+#             sudo ./aws/install
+      - run:
           name: Configure AWS credentials
           command: |
             # Replace <your_access_key_id> and <your_secret_access_key> with environment variables
@@ -139,7 +145,7 @@ workflows:
                 - feature
       - deploy:
           requires:
-            - build
+            - test
           filters:
             branches:
               only:
