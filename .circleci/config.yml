@@ -105,3 +105,4 @@ workflows:
             branches:
               only:
                 - main
+
