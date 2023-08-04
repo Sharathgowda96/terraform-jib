@@ -90,7 +90,7 @@ jobs:
 
   test:
     docker:
-      - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light  # Replace with an appropriate Docker image for your project
     steps:
       - checkout
       - run:
@@ -117,7 +117,7 @@ jobs:
 
   deploy:
     docker:
-      - image: hashicorp/terraform:1.0.0     
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light     
     steps:
       - checkout
       - run:
