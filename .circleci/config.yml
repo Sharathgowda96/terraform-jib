@@ -99,7 +99,7 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - feature
       - deploy:
           filters:
             branches:
