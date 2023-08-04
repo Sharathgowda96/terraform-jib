@@ -73,7 +73,7 @@ version: 2.1
 
 # Define your jobs here
 jobs:
-  build:
+  test:
     docker:
       - image: circleci/python:3.9
     steps:
@@ -93,6 +93,17 @@ jobs:
             aws configure set aws_access_key_id $Access_Key
             aws configure set aws_secret_access_key $Secret_Access_Key
             aws configure set default.region us-west-1  # Replace with your desired region
+     - run:
+          name: Install Terraform
+          command: |
+            curl "https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip" -o "terraform.zip"
+            unzip terraform.zip
+            sudo mv terraform /usr/local/bin/
+  build:
+    docker:
+      - image: circleci/python:3.9
+    steps:
+      - checkout
       - run:
           name: Terraform Init
           command: terraform init
@@ -108,20 +119,6 @@ jobs:
       - image: circleci/python:3.9
     steps:
       - checkout
-            # Configure AWS credentials
-      - run:
-          name: Configure AWS credentials
-          command: |
-            # Replace <your_access_key_id> and <your_secret_access_key> with environment variables
-            aws configure set aws_access_key_id $Access_Key
-            aws configure set aws_secret_access_key $Secret_Access_Key
-            aws configure set default.region us-west-1  # Replace with your desired region
-      - run:
-          name: Install Terraform
-          command: |
-            curl "https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip" -o "terraform.zip"
-            unzip terraform.zip
-            sudo mv terraform /usr/local/bin/
       - run:
           name: Terraform Init
           command: terraform init
@@ -132,14 +129,22 @@ jobs:
 # Define your workflow heree
 workflows:
   version: 2
-  build_and_deploy:
+  build_test_and_deploy:
     jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - main
+                - feature
       - build:
           filters:
             branches:
               only:
                 - feature
       - deploy:
+          requires:
+            - test
           filters:
             branches:
               only:
