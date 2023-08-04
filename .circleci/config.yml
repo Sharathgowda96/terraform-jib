@@ -90,7 +90,7 @@ jobs:
           name: Terraform Apply
           command: terraform apply -auto-approve
 
-# Define your workflow here
+# Define your workflow heree
 workflows:
   version: 2
   build_and_deploy:
