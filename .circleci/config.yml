@@ -130,7 +130,7 @@ jobs:
       - run:
           name: Terraform Init
           command: terraform init
-      -run:
+      - run:
         name: Terraform Plan
         command: terraform plan
       - run:
