@@ -65,13 +65,10 @@ version: 2.1
 jobs:
   build:
     docker:
+      - image: circleci/python:3.9
       - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
-      - run:
-          name: Install curl
-          command: |
-            apt-get update && sudo apt-get install -y curl
       - run:
           name: Install AWS CLI
           command: |
@@ -100,6 +97,7 @@ jobs:
 
   deploy:
     docker:
+      - image: circleci/python:3.9
       - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
