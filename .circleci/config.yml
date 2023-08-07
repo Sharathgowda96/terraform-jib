@@ -94,15 +94,17 @@ jobs:
             sudo mv terraform /usr/local/bin/
       - terraform/install
       - terraform/init
-      - run:
-          name: Terraform Init
-          command: terraform init
-      - run:
-          name: Terraform Validate
-          command: terraform validate
-      - run:
-          name: Terraform Plan
-          command: terraform plan
+      - terraform/validate
+      -terraform/plan
+      # - run:
+      #     name: Terraform Init
+      #     command: terraform init
+      # - run:
+      #     name: Terraform Validate
+      #     command: terraform validate
+      # - run:
+      #     name: Terraform Plan
+      #     command: terraform plan
 
   deploy:
     docker:
