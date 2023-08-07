@@ -7,7 +7,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "testing-s3-with-terra"
-    key    = "/*"
+    key    = "*"
     region = "us-west-1"
   }
 }
