@@ -78,12 +78,10 @@ version: 2.1
 orbs:
   terraform: "circleci/terraform@1.1.0"
 # Define your workflows, jobs, and steps here
-workflow:
-  jobs:
+jobs:
     build:
       docker:
         - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
-
    steps:
       - checkout  
       - run:
