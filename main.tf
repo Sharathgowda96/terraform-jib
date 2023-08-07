@@ -7,7 +7,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "testing-s3-with-terra"
-    key    = "path/to/my/key"
+    key    = "/*"
     region = "us-east-1"
   }
 }
@@ -36,7 +36,7 @@ resource "aws_s3_bucket" "onebucket" {
     {
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
-      "Resource": "arn:aws:s3:::mybucket/path/to/my/key"
+      "Resource": "arn:aws:s3:::testing-s3-with-terra/*"
     }
   ]
 }
