@@ -173,11 +173,10 @@ workflows:
           context: terraform
           requires:
             - terraform/fmt
-
       - terraform/plan:
           checkout: true
           context: terraform
-          persist_workspace: true
+          persist-workspace: true
           requires:
             - terraform/validate
 
