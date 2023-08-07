@@ -92,9 +92,11 @@ jobs:
             curl "https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip" -o "terraform.zip"
             unzip terraform.zip
             sudo mv terraform /usr/local/bin/
+      - terraform/install
+      - terraform/init
       - run:
           name: Terraform Init
-          command: terraform/terraform init
+          command: terraform init
       - run:
           name: Terraform Validate
           command: terraform validate
