@@ -51,6 +51,8 @@ jobs:
       - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
+      - attach_workspace:
+          at: .
       - run:
           name: Terraform Init
           command: terraform init
@@ -73,4 +75,6 @@ workflows:
             branches:
               only:
                 - main
+          requires:
+            - build
 
