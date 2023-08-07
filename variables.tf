@@ -4,7 +4,15 @@
 #}
 
 variable "aws_region" {
-  default = "us-west-1"
+  default = "us-east-1"
+}
+
+variable "access_key" {
+  default = "AKIAWIPSST26DLHVBEOF"
+}
+
+variable "secret_key" {
+  default = "ijI8vXR9/EFtVXnfvlxPJuGkRDLlfQp0rSiGDB9a"
 }
 
 variable "s3_bucket_name" {

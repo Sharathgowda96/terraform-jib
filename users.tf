@@ -1,4 +1,4 @@
-#creating users
+##creating users
 #resource "aws_iam_user" "newusers" {
 #  count = length(var.username)
 #  name  = var.username[count.index]
