@@ -78,4 +78,4 @@ workflows:
               only:
                 - main
           requires:
-            -build
+            - build
