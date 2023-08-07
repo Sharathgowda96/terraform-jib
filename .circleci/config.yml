@@ -95,7 +95,7 @@ jobs:
       - terraform/install
       - terraform/init
       - terraform/validate
-      -terraform/plan
+      - terraform/plan
       # - run:
       #     name: Terraform Init
       #     command: terraform init
