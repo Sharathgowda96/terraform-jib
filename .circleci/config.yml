@@ -120,22 +120,22 @@ workflow:
           command: |
             terraform apply -auto-approve
 
-workflows:
-  version: 2
-  build_deploy:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore:
-                - feature
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - main
+# workflows:
+#   version: 2
+#   build_deploy:
+#     jobs:
+#       - build:
+#           filters:
+#             branches:
+#               ignore:
+#                 - feature
+#       - deploy:
+#           requires:
+#             - build
+#           filters:
+#             branches:
+#               only:
+#                 - main
 
 
 
