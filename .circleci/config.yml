@@ -61,7 +61,7 @@
 #                 - feature
 version: 2.1
 
-# Define your jobs here
+# Define your jobs her
 jobs:
   build:
     docker:
