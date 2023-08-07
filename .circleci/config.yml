@@ -177,7 +177,7 @@ workflows:
       - terraform/plan:
           checkout: true
           context: terraform
-          persist_to_workspace:
+          persist_workspace:
             root: .
           requires:
             - terraform/validate
