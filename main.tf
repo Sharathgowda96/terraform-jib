@@ -1,3 +1,9 @@
+provider "aws" {
+  Access_Key = var.Access_Key
+  Secret_Access_Key = var.Secret_Access_Key
+  region = var.aws_region
+}
+
 resource "aws_s3_bucket" "onebucket" {
   bucket = var.s3_bucket_name
   acl    = "private"
