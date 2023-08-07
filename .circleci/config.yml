@@ -154,7 +154,6 @@ workflows:
       - terraform/plan:
           context: terraform
           persist_workspace: true
-            root: .
             paths:
               - terraform.tfstate
           requires:
