@@ -1,7 +1,7 @@
-variable "username" {
-  type    = list(any)
-  default = ["terraform-jib", ]
-}
+#variable "username" {
+#  type    = list(any)
+#  default = ["terraform-jib", ]
+#}
 
 variable "aws_region" {
   default = "us-west-1"
