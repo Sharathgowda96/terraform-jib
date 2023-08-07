@@ -51,13 +51,11 @@ jobs:
       - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
-    requires:
-      - build
-      - terraform/init
-      # - terraform/apply
-      # - run:
-      #     name: Terraform Init
-      #     command: terraform init
+      requires:
+        - build
+      - run:
+          name: Terraform Init
+          command: terraform init
       # - run:
       #     name: Terraform Apply
       #     command: terraform apply -auto-approve
