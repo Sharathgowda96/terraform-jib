@@ -1,6 +1,6 @@
 provider "aws" {
-  access_key = env("Access_Key")
-  secret_key = env("Secret_Access_Key")
+  access_key = var.access_key
+  secret_key = var.secrete_key
   region = var.aws_region
 }
 
