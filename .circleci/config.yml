@@ -66,7 +66,8 @@ jobs:
   build:
     docker:
       - image: circleci/python:3.9
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+      - image: circleci/terraform:3.1
+
     steps:
       - checkout
       - run:
