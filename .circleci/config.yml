@@ -74,48 +74,71 @@
 #               only:
 #                 - main
 
-version: 2
+version: 2.1
 
+# Define your jobs her
 jobs:
-  plan-apply:
-    working_directory: /tmp/project
+  build:
     docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+      - image: circleci/python:3.9
     steps:
       - checkout
       - run:
-          name: terraform init & plan
+          name: Install AWS CLI
           command: |
-            terraform init -input=false
-            terraform plan -out tfapply -var-file main.tf
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  apply:
-    docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
-    steps:
-      - attach_workspace:
-          at: .
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+      
+      # Configure AWS credentials
       - run:
-          name: terraform
+          name: Configure AWS credentials
           command: |
-            terraform apply -auto-approve tfapply
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
+            # Replace <your_access_key_id> and <your_secret_access_key> with environment variables
+            aws configure set aws_access_key_id $Access_Key
+            aws configure set aws_secret_access_key $Secret_Access_Key
+            aws configure set default.region us-west-1  # Replace with your desired region
+      - run:
+          name: Install Terraform
+          command: |
+            curl "https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip" -o "terraform.zip"
+            unzip terraform.zip
+            sudo mv terraform /usr/local/bin/
+      - run:
+          name: Terraform Init
+          command: terraform init
+      - run:
+          name: Terraform Validate
+          command: terraform validate
+      - run:
+          name: Terraform Plan
+          command: terraform plan
+
+  deploy:
+    docker:
+      - image: circleci/python:3.9
+      - image: hashicorp/terraform:1.0.0
+    steps:
+      - checkout
+      - run:
+          name: Terraform Init
+          command: terraform init
+      - run:
+          name: Terraform Apply
+          command: terraform apply -auto-approve
+
+# Define your workflow heree
 workflows:
   version: 2
-  plan_approve_apply:
+  build_and_deploy:
     jobs:
-      - plan-apply
-      - hold-apply:
-          type: approval
-          requires:
-            - plan-apply
-      - apply:
-          requires:
-            - hold-apply
+      - build:
+          filters:
+            branches:
+              only:
+                - feature
+      - deploy:
+          filters:
+            branches:
+              only:
+                - main
