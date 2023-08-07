@@ -59,7 +59,7 @@ jobs:
       #     name: Terraform Init
       #     command: terraform init
       #   requires:
-          - build
+          # - build
       # - run:
       #     name: Terraform Apply
       #     command: terraform apply -auto-approve
@@ -80,5 +80,5 @@ workflows:
               only:
                 - main
           requires:
-            - build
+            - terraform/plan
 
