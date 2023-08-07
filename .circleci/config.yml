@@ -183,7 +183,6 @@ workflows:
 
       - terraform/apply:
           attach_workspace: true
-            at: .
           context: terraform
           filters:
             branches:
