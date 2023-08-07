@@ -42,10 +42,16 @@ jobs:
             terraform init
             terraform fmt
             terraform validate
-      - run:
-          name: Terraform Plan
-          command: |
-            terraform plan
+      - terraform/plan:
+          checkout: true
+          context: terraform
+          persist-workspace: true
+          requires:
+            - terraform/init
+      # - run:
+      #     name: Terraform Plan
+      #     command: |
+      #       terraform plan
       - run:
           name: Terraform Apply
           command: |
