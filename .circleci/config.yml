@@ -72,7 +72,7 @@ workflows:
             branches:
               only:
                 - feature
-      - deploy:
+      - deploy: *deploy
           filters:
             branches:
               only:
