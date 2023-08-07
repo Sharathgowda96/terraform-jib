@@ -17,7 +17,7 @@ variable "secret_key" {
 
 variable "s3_bucket_name" {
   type    = string
-  default = "s3_bucketterra"
+  default = "testing-s3-with-terra"
 }
 
 variable "aws_iam_policy_attachment" {
