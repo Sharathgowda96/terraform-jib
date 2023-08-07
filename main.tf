@@ -1,3 +1,18 @@
+provider "aws" {
+  Access_Key = var.Access_Key
+  Secret_Access_Key = var.Secret_Access_Key
+  region = var.aws_region
+}
+
+terraform {
+  backend "s3" {
+    bucket = "testing-s3-with-terra"
+    key    = "/*"
+    region = "us-east-1"
+  }
+}
+
+
 resource "aws_s3_bucket" "onebucket" {
   bucket = var.s3_bucket_name
   acl    = "private"
@@ -9,6 +24,23 @@ resource "aws_s3_bucket" "onebucket" {
     Environment = "Test"
   }
 }
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::testing-s3-with-terra"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+      "Resource": "arn:aws:s3:::testing-s3-with-terra/*"
+    }
+  ]
+}
+
 
 resource "aws_iam_policy" "s3_full_access" {
   name = var.aws_iam_policy
@@ -56,4 +88,3 @@ resource "aws_iam_policy_attachment" "s3_full_access_attachment" {
   policy_arn = aws_iam_policy.s3_full_access.arn
   roles      = [aws_iam_role.s3_role.name]
 }
-
