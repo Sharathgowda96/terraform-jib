@@ -65,7 +65,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      # - image: circleci/python:3.9
+      - image: circleci/python:3.9
       - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
     steps:
       - checkout
