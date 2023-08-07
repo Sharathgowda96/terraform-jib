@@ -25,6 +25,10 @@ resource "aws_s3_bucket" "onebucket" {
   }
 }
 
+resource "aws_iam_policy" "s3_full_access" {
+  name = var.aws_iam_policy
+
+  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -40,7 +44,7 @@ resource "aws_s3_bucket" "onebucket" {
     }
   ]
 }
-
+}
 
 resource "aws_iam_policy" "s3_full_access" {
   name = var.aws_iam_policy
@@ -58,8 +62,8 @@ resource "aws_iam_policy" "s3_full_access" {
         "s3:ListBucket"
       ],
       "Resource": [
-        "arn:aws:s3:::s3-terra",
-        "arn:aws:s3:::s3-terra/*"
+        "arn:aws:s3:::testing-s3-with-terra",
+        "arn:aws:s3:::testing-s3-with-terra/*"
       ]
     }
   ]
