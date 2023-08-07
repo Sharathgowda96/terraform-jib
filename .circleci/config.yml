@@ -51,6 +51,7 @@ jobs:
       - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
+      - terraform/init
       - terraform/apply
       # - run:
       #     name: Terraform Init
