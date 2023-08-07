@@ -167,7 +167,6 @@ workflows:
       - terraform/fmt:
           checkout: true
           context: terraform
-
       - terraform/validate:
           checkout: true
           context: terraform
@@ -179,9 +178,8 @@ workflows:
           persist-workspace: true
           requires:
             - terraform/validate
-
       - terraform/apply:
-          attach_workspace: true
+          attach-workspace: true
           context: terraform
           filters:
             branches:
