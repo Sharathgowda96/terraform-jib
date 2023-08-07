@@ -60,14 +60,14 @@
 #               only:
 #                 - feature
 version: 2.1
+orbs:
+  terraform: circleci/terraform@1.1.0
 
 # Define your jobs her
 jobs:
   build:
     docker:
       - image: circleci/python:3.9
-      - image: circleci/terraform:3.2.1
-
     steps:
       - checkout
       - run:
@@ -93,7 +93,7 @@ jobs:
             sudo mv terraform /usr/local/bin/
       - run:
           name: Terraform Init
-          command: terraform init
+          command: terraform/terraform init
       - run:
           name: Terraform Validate
           command: terraform validate
