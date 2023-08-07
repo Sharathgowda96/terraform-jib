@@ -1,6 +1,6 @@
 provider "aws" {
   access_key = env("Access_Key")
-  secret_key = var.TF_VAR_Secret_Access_Key
+  secret_key = env("Secret_Access_Key")
   region = var.aws_region
 }
 
