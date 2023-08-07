@@ -51,6 +51,8 @@ jobs:
       - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
+      requires:
+        - build
       - terraform/init
       # - run:
       #     name: Terraform Init
@@ -74,6 +76,4 @@ workflows:
             branches:
               only:
                 - main
-            requires:
-              - build
 
