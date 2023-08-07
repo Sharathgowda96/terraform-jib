@@ -52,8 +52,6 @@ jobs:
     steps:
       - checkout
       - terraform/init
-          requires:
-            - build
       # - run:
       #     name: Terraform Init
       #     command: terraform init
@@ -76,6 +74,6 @@ workflows:
             branches:
               only:
                 - main
-          requires:
-            - build
+          - requires:
+              - build
 
