@@ -11,7 +11,7 @@ variable "access_key" {
   default = "AKIAWIPSST26DLHVBEOF"
 }
 
-variable "secrete_key" {
+variable "secret_key" {
   default = "ijI8vXR9/EFtVXnfvlxPJuGkRDLlfQp0rSiGDB9a"
 }
 
