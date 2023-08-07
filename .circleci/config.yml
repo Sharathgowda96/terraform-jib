@@ -50,13 +50,15 @@ jobs:
       - image: circleci/python:3.9
       - image: hashicorp/terraform:1.0.0
     steps:
-      - checkout
+      - checkout 
+      - terraform/init:
+          attach-workspace: true
+          context: terraform
       
-      - terraform/init
-      - run:
-          name: Terraform Init
-          command: terraform init
-        requires:
+      # - run:
+      #     name: Terraform Init
+      #     command: terraform init
+      #   requires:
           - build
       # - run:
       #     name: Terraform Apply
@@ -77,4 +79,6 @@ workflows:
             branches:
               only:
                 - main
+          requires:
+            - build
 
