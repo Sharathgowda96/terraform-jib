@@ -8,7 +8,7 @@ terraform {
   backend "s3" {
     bucket = "testing-s3-with-terra"
     key    = "/*"
-    region = us-west-1
+    region = "us-west-1"
   }
 }
 
