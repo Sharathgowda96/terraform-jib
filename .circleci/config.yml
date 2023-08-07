@@ -80,5 +80,5 @@ workflows:
               only:
                 - main
           requires:
-            - terraform/plan
+            - build
 
