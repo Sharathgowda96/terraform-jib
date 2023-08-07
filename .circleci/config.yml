@@ -53,7 +53,7 @@ jobs:
       - checkout
       requires:
         - build
-      - terraform/init
+        - terraform/init
       # - terraform/apply
       # - run:
       #     name: Terraform Init
