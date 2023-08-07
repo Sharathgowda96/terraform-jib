@@ -46,14 +46,14 @@ jobs:
       #     command: terraform plan
 
   deploy:
-    # docker:
-    #   - image: circleci/python:3.9
-    #   - image: hashicorp/terraform:1.0.0
-    # steps:
-    #   - checkout 
-    - terraform/init:
-        attach-workspace: true
-        context: terraform
+    docker:
+      - image: circleci/python:3.9
+      - image: hashicorp/terraform:1.0.0
+    steps:
+      - checkout 
+      - terraform/init:
+          attach-workspace: true
+          context: terraform
       
       # - run:
       #     name: Terraform Init
