@@ -153,7 +153,7 @@ workflows:
             - terraform/fmt
       - terraform/plan:
           context: terraform
-          persist_to_workspace:
+          persist_workspace: true
             root: .
             paths:
               - terraform.tfstate
