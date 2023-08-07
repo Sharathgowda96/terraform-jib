@@ -80,6 +80,12 @@ orbs:
 # Define your workflows, jobs, and steps here
 workflow:
   jobs:
+    build:
+      docker:
+        - image: circleci/python:3.9  # Replace with an appropriate Docker image for your project
+
+   steps:
+      - checkout  
       - run:
           name: Install AWS CLI
           command: |
