@@ -177,18 +177,17 @@ workflows:
       - terraform/plan:
           checkout: true
           context: terraform
-          persist_workspace:
-            root: .
+          persist_workspace: true
           requires:
             - terraform/validate
 
       - terraform/apply:
-          attach_workspace:
+          attach_workspace: true
             at: .
           context: terraform
           filters:
             branches:
-              only: master
+              only: main
           requires:
             - terraform/plan
 
