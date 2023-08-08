@@ -110,6 +110,7 @@ jobs:
   deploy:
     docker:
       - image: circleci/python:3.9
+      - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
       - run:
