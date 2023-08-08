@@ -138,11 +138,11 @@ workflows:
         - test
         - build
             requires:
-              - test:
-                  fileters:
-                    branches:
-                      only:
-                        - feature
+              - test
+            fileters:
+              branches:
+                only:
+                  - feature
       # - test:
       #     filters:
       #       branches:
