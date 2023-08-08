@@ -133,5 +133,3 @@ workflows:
             branches:
               only:
                 - main
-          requires:
-            - build
