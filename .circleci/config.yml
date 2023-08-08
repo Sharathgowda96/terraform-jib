@@ -79,7 +79,8 @@ jobs:
   test:
     docker:
       - image: circleci/python:3.9
-      - image: cimg/aws:2023.08
+    macos:
+      xcode: 14.0.0
     steps:
       - checkout
       - run: aws --version
