@@ -141,7 +141,6 @@ workflows:
               ignore:
                 - main
       - build:
-          name: Build Job
           filters:
             branches:
               only:
