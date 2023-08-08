@@ -76,22 +76,17 @@ orbs:
   terraform: circleci/terraform@1.1.0
 
 jobs:
-  test:
+  build:
     docker:
       - image: circleci/python:3.9
-    macos:
-      xcode: 14.0.0
     steps:
       - checkout
-      - run: aws --version
-    # steps:
-    #   - checkout
-    #   - run:
-    #       name: Install AWS CLI
-    #       command: |
-    #         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-    #         unzip awscliv2.zip
-    #         sudo ./aws/install
+      - run:
+          name: Install AWS CLI
+          command: |
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
       
       # Configure AWS credentials
       - run:
@@ -100,7 +95,7 @@ jobs:
             aws configure set aws_access_key_id $Access_Key
             aws configure set aws_secret_access_key $Secret_Access_Key
             aws configure set default.region us-west-1 
-  build:
+  test:
     docker:
       - image: hashicorp/terraform:1.0.0
     steps:
@@ -144,7 +139,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - main
+                - feature
       - build:
           filters:
             branches:
