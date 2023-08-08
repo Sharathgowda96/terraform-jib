@@ -94,9 +94,13 @@ jobs:
             unzip terraform.zip
             sudo mv terraform /usr/local/bin/
       - terraform/install
+          context: terraform
       - terraform/init
+          context: terraform
       - terraform/validate
+          context: terraform
       - terraform/plan
+          context: terraform
       # - run:
       #     name: Terraform Init
       #     command: terraform init
@@ -113,6 +117,8 @@ jobs:
       - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
+      - terraform/apply
+          context: terraform
       - run:
           name: Terraform Init
           command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
