@@ -112,8 +112,9 @@ jobs:
       - image: circleci/python:3.9
     steps:
       - checkout
-      - attach_workspace:
-          at: .
+      - run:
+          name: Terraform Init
+          command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
       - run:
           name: Terraform Apply
           command: terraform apply -auto-approve
@@ -129,8 +130,6 @@ workflows:
               only:
                 - feature
       - deploy:
-          requires:
-            -build
           filters:
             branches:
               only:
