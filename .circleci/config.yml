@@ -135,14 +135,27 @@ workflows:
   version: 2
   build_and_deploy:
     jobs:
-        - test
-        - build
-            requires:
-              - test
-            fileters:
-              branches:
-                only:
-                  - feature
+      - test:
+          filters:
+            branches:
+              ignore:
+                - main
+      - build:
+          name: Build Job
+          filters:
+            branches:
+              only:
+                - feature
+      - deploy:
+          name: Deploy Job
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - test
+            - build
+
       # - test:
       #     filters:
       #       branches:
