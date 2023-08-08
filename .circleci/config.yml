@@ -140,13 +140,12 @@ workflows:
             branches:
               only:
                 - feature
+
       - build:
           filters:
             branches:
               only:
                 - feature
-          requires:
-            - test
       - test:
           filters:
             branches:
@@ -157,5 +156,3 @@ workflows:
             branches:
               only:
                 - main
-          requires:
-            - test
