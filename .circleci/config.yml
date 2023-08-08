@@ -139,7 +139,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - feature
+                - main
       - build:
           filters:
             branches:
