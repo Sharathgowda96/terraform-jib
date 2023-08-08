@@ -129,6 +129,8 @@ workflows:
               only:
                 - feature
       - deploy:
+          requires:
+            -build
           filters:
             branches:
               only:
