@@ -93,23 +93,22 @@ jobs:
             curl "https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip" -o "terraform.zip"
             unzip terraform.zip
             sudo mv terraform /usr/local/bin/
-      - terraform/install
+      # - terraform/install
+      # - terraform/init
+      # - terraform/validate
+      # - terraform/plan
+      - run:
+          name: Terraform Init
+          command: terraform init
           context: terraform
-      - terraform/init
+      - run:
+          name: Terraform Validate
+          command: terraform validate
           context: terraform
-      - terraform/validate
+      - run:
+          name: Terraform Plan
+          command: terraform plan
           context: terraform
-      - terraform/plan
-          context: terraform
-      # - run:
-      #     name: Terraform Init
-      #     command: terraform init
-      # - run:
-      #     name: Terraform Validate
-      #     command: terraform validate
-      # - run:
-      #     name: Terraform Plan
-      #     command: terraform plan
 
   deploy:
     docker:
@@ -117,15 +116,14 @@ jobs:
       - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
-      - terraform/apply
-          context: terraform
       - run:
           name: Terraform Init
           command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
+          context: terraform
       - run:
           name: Terraform Apply
           command: terraform apply -auto-approve
-
+          context: terraform
 # Define your workflow heree
 workflows:
   version: 2
