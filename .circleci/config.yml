@@ -43,6 +43,14 @@ jobs:
           name: Terraform Plan
           command: terraform plan
           context: terraform
+      - persist_to_workspace:
+          root: .
+          paths:
+            - main.tf
+            - output.tf
+            - provider.tf
+            - users.tf
+            - variable.tf
 
   deploy:
     docker:
@@ -50,7 +58,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: .
       - run:
           name: Terraform Init
           command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
