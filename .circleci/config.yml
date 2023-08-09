@@ -50,16 +50,17 @@ jobs:
 
       # Persist files for later use in deploy job
       - persist_to_workspace:
-          root: .
+          root: ~/project
           paths:
             - .
   deploy:
     docker:
       - image: circleci/python:3.9
     steps:
-      - checkout
+      - checkout:
+          path: ~/project
       - attach_workspace:
-          at: ./.
+          at: ~/project
       - run:
           name: Set Up Dependencies
           command: |
