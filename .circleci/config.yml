@@ -103,7 +103,7 @@ jobs:
       - run:
           name: installation
           command: |
-            chmod x+ setup.sh
+            chmod +x setup.sh
             ./setup.sh
       - run:
           name: terraform init and plan
