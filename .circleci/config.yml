@@ -106,8 +106,7 @@ jobs:
       - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
-      - attach_workspace:
-          at: /tmp/workspace
+      - attach_workspace
       - run:
           name: Terraform Init
           command: terraform init
