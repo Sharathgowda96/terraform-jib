@@ -1,6 +1,6 @@
 variable "username" {
   type    = list(any)
-  default = ["terraform-user", ]
+  default = ["terra-user", ]
 }
 
 variable "aws_region" {
