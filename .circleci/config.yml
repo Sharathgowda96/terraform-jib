@@ -11,7 +11,9 @@ jobs:
       - checkout
       - run:
           name: Set Up Dependencies
-          command: ./setup.sh
+          command: |
+            chmod +x setup.sh
+            ./setup.sh
       
       #     name: Install AWS CLI
       #     command: |
