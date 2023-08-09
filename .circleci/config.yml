@@ -90,11 +90,13 @@
 #               only:
 #                 - main
 version: 2.1
+orbs:
+  terraform: circleci/terraform@2.0.0
 jobs:
   build:
     working_directory: /tmp/project
     docker:
-      - image: harshicorp/terraform:latest
+      - image: cimg/base:stable
     steps:
       - checkout
       - run:
@@ -108,7 +110,7 @@ jobs:
             - .
   deploy:
     docker:
-      - image: hashicorp/terraform:latest
+      - image: cimg/base:stable
     steps:
       - attach_workspace:
           at: .
