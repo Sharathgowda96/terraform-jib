@@ -107,40 +107,6 @@ jobs:
           root: .
           paths:
             - .
-      # - run:
-      #     name: Install AWS CLI
-      #     command: |
-      #       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      #       unzip awscliv2.zip
-      #       sudo ./aws/install
-      
-      # # Configure AWS credentials
-      # - run:
-      #     name: Configure AWS credentials
-      #     command: |
-      #       aws configure set aws_access_key_id $Access_Key
-      #       aws configure set aws_secret_access_key $Secret_Access_Key
-      #       aws configure set default.region us-west-1 
-  # test:
-  #   docker:
-  #     - image: circleci/python:3.9
-  #     - image: hashicorp/terraform:1.0.0
-  #   steps:
-  #     - checkout
-  #     - attach_workspace
-  #     - run:
-  #         name: Terraform Init
-  #         command: terraform init
-  #         context: terraform
-  #     - run:
-  #         name: Terraform Validate
-  #         command: terraform validate
-  #         context: terraform
-  #     - run:
-  #         name: Terraform Plan
-  #         command: terraform plan
-  #         context: terraform
-
   deploy:
     docker:
       - image: hashicorp/terraform:light
