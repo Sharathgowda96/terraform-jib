@@ -14,7 +14,7 @@ jobs:
           command: |
             chmod +x setup.sh
             ./setup.sh
-      
+      # - run:
       #     name: Install AWS CLI
       #     command: |
       #       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
@@ -47,6 +47,7 @@ jobs:
           name: Terraform Plan
           command: terraform plan
           context: terraform
+
       # Persist files for later use in deploy job
       - persist_to_workspace:
           root: .
@@ -58,15 +59,16 @@ jobs:
       - image: circleci/python:3.9
     steps:
       - checkout
-      - attach_workspace:   # Attach persisted files from build job
+      - attach_workspace:
           at: setup.sh
       - run:
           name: Terraform Init
-          command: terraform init
+          command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
+          context: terraform
       - run:
           name: Terraform Apply
           command: terraform apply -auto-approve
-
+          context: terraform
 # Define your workflow heree
 workflows:
   version: 2
@@ -82,6 +84,7 @@ workflows:
             branches:
               only:
                 - main
+
 
 # version: 2.1
 # orbs:
@@ -189,3 +192,4 @@ workflows:
 #       #       branches:
 #       #         only:
 #       #           - main
+
