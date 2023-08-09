@@ -58,8 +58,7 @@ jobs:
       - image: circleci/python:3.9
     steps:
       - checkout:
-          path: ~/project
-      - attach_workspace: true
+          attach_workspace: true
       - run:
           name: Set Up Dependencies
           command: |
