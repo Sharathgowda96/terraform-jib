@@ -66,10 +66,10 @@ jobs:
           command: |
             chmod +x setup.sh
             ./setup.sh
-      # - run:
-      #     name: Terraform Init
-      #     command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
-      #     context: terraform
+      - run:
+          name: Terraform Init
+          command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
+          context: terraform
       - run:
           name: Terraform Apply
           command: terraform apply -auto-approve
