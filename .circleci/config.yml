@@ -46,11 +46,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - main.tf
-            - output.tf
-            - provider.tf
-            - users.tf
-            - variable.tf# Example path, add other paths if needed
+            - build # Example path, add other paths if needed
 
   deploy:
     docker:
