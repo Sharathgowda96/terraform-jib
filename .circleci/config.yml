@@ -99,6 +99,11 @@ jobs:
       - image: cimg/base:stable
     steps:
       - checkout
+      - checkout
+      - terraform/install:
+          terraform_version: 0.15.5
+          arch: "amd64"
+          os: "linux"
       - run:
           name: terraform init and plan
           command: |
