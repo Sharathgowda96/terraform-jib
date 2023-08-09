@@ -52,8 +52,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - ./terraform-jib # Example path, add other paths if needed
-
+            - .
   deploy:
     docker:
       - image: circleci/python:3.9
