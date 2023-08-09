@@ -97,6 +97,7 @@ jobs:
     working_directory: /tmp/project
     docker:
       - image: cimg/base:stable
+      - image: circleci/python:3.9
     steps:
       - checkout
       - run:
@@ -116,6 +117,7 @@ jobs:
   deploy:
     docker:
       - image: cimg/base:stable
+      - image: circleci/python:3.9
     steps:
       - attach_workspace:
           at: .
