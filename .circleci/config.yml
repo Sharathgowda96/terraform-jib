@@ -1,104 +1,8 @@
-version: 2.1
-orbs:
-  terraform: circleci/terraform@1.1.0
-
-# Define your jobs her
-jobs:
-  build:
-    docker:
-      - image: circleci/python:3.9
-    steps:
-      - checkout
-      - run:
-          name: Set Up Dependencies
-          command: |
-            chmod +x setup.sh
-            ./setup.sh
-      # - run:
-      #     name: Install AWS CLI
-      #     command: |
-      #       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      #       unzip awscliv2.zip
-      #       sudo ./aws/install
-      
-      # # Configure AWS credentials
-      # - run:
-      #     name: Configure AWS credentials
-      #     command: |
-      #       # Replace <your_access_key_id> and <your_secret_access_key> with environment variables
-      #       aws configure set aws_access_key_id $Access_Key
-      #       aws configure set aws_secret_access_key $Secret_Access_Key
-      #       aws configure set default.region us-west-1  # Replace with your desired region
-      # - run:
-      #     name: Install Terraform
-      #     command: |
-      #       curl "https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip" -o "terraform.zip"
-      #       unzip terraform.zip
-      #       sudo mv terraform /usr/local/bin/
-      - run:
-          name: Terraform Init
-          command: terraform init
-          context: terraform
-      - run:
-          name: Terraform Validate
-          command: terraform validate
-          context: terraform
-      - run:
-          name: Terraform Plan
-          command: terraform plan
-          context: terraform
-
-      # Persist files for later use in deploy job
-      - persist_to_workspace:
-          root: ~/terraform-jib
-          paths:
-            - .
-  deploy:
-    docker:
-      - image: circleci/python:3.9
-    steps:
-      - checkout:
-      - attach_workspace:
-          at: ~/terraform-jib
-      - run:
-          name: Set Up Dependencies
-          command: |
-            chmod +x setup.sh
-            ./setup.sh
-      - run:
-          name: Terraform Init
-          command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
-          context: terraform
-      - run:
-          name: Terraform Apply
-          command: terraform apply -auto-approve
-          context: terraform
-# Define your workflow heree
-workflows:
-  version: 2
-  build_and_deploy:
-    jobs:
-      - build:
-          filters:
-            branches:
-              only:
-                - feature
-      - deploy:
-          filters:
-            branches:
-              only:
-                - main
-
-
 # version: 2.1
 # orbs:
 #   terraform: circleci/terraform@1.1.0
-# references:
-#   workspace_root: &workspace_root
-#     /tmp/workspace
-#   attach_workspace: &attach_workspace
-#     attach_workspace:
-#       at: *workspace_root
+
+# # Define your jobs her
 # jobs:
 #   build:
 #     docker:
@@ -106,26 +10,31 @@ workflows:
 #     steps:
 #       - checkout
 #       - run:
-#           name: Install AWS CLI
+#           name: Set Up Dependencies
 #           command: |
-#             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-#             unzip awscliv2.zip
-#             sudo ./aws/install
+#             chmod +x setup.sh
+#             ./setup.sh
+#       # - run:
+#       #     name: Install AWS CLI
+#       #     command: |
+#       #       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+#       #       unzip awscliv2.zip
+#       #       sudo ./aws/install
       
-#       # Configure AWS credentials
-#       - run:
-#           name: Configure AWS credentials
-#           command: |
-#             aws configure set aws_access_key_id $Access_Key
-#             aws configure set aws_secret_access_key $Secret_Access_Key
-#             aws configure set default.region us-west-1 
-#   test:
-#     docker:
-#       - image: circleci/python:3.9
-#       - image: hashicorp/terraform:1.0.0
-#     steps:
-#       - checkout
-#       - attach_workspace
+#       # # Configure AWS credentials
+#       # - run:
+#       #     name: Configure AWS credentials
+#       #     command: |
+#       #       # Replace <your_access_key_id> and <your_secret_access_key> with environment variables
+#       #       aws configure set aws_access_key_id $Access_Key
+#       #       aws configure set aws_secret_access_key $Secret_Access_Key
+#       #       aws configure set default.region us-west-1  # Replace with your desired region
+#       # - run:
+#       #     name: Install Terraform
+#       #     command: |
+#       #       curl "https://releases.hashicorp.com/terraform/1.0.0/terraform_1.0.0_linux_amd64.zip" -o "terraform.zip"
+#       #       unzip terraform.zip
+#       #       sudo mv terraform /usr/local/bin/
 #       - run:
 #           name: Terraform Init
 #           command: terraform init
@@ -139,61 +48,149 @@ workflows:
 #           command: terraform plan
 #           context: terraform
 
+#       # Persist files for later use in deploy job
+#       - persist_to_workspace:
+#           root: ~/terraform-jib
+#           paths:
+#             - .
 #   deploy:
 #     docker:
 #       - image: circleci/python:3.9
-#       - image: hashicorp/terraform:1.0.0
 #     steps:
-#       - *attach_workspace
-#       - checkout
+#       - checkout:
+#       - attach_workspace:
+#           at: ~/terraform-jib
+#       - run:
+#           name: Set Up Dependencies
+#           command: |
+#             chmod +x setup.sh
+#             ./setup.sh
+#       - run:
+#           name: Terraform Init
+#           command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
+#           context: terraform
 #       - run:
 #           name: Terraform Apply
 #           command: terraform apply -auto-approve
 #           context: terraform
-
+# # Define your workflow heree
 # workflows:
 #   version: 2
 #   build_and_deploy:
 #     jobs:
-#       - test:
-#           filters:
-#             branches:
-#               ignore:
-#                 - main
 #       - build:
 #           filters:
 #             branches:
 #               only:
 #                 - feature
 #       - deploy:
-#           name: Deploy Job
 #           filters:
 #             branches:
 #               only:
 #                 - main
-#           requires:
-#             - test
-#             - build
 
-#       # - test:
-#       #     filters:
-#       #       branches:
-#       #         only:
-#       #           - feature
 
-#       # - build:
-#       #     filters:
-#       #       branches:
-#       #         only:
-#       #           - feature
-#       # - test:
-#       #     filters:
-#       #       branches:
-#       #         only:
-#       #           - main
-#       # - deploy:
-#       #     filters:
-#       #       branches:
-#       #         only:
-#       #           - main
+version: 2.1
+jobs:
+  build:
+    working_directory: /tmp/project
+    docker:
+      - image: harshicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: terraform init and plan
+          command: |
+            terraform init -input=false
+            terraform plan -out tfapply -var-file variables.tfvars
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+      # - run:
+      #     name: Install AWS CLI
+      #     command: |
+      #       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      #       unzip awscliv2.zip
+      #       sudo ./aws/install
+      
+      # # Configure AWS credentials
+      # - run:
+      #     name: Configure AWS credentials
+      #     command: |
+      #       aws configure set aws_access_key_id $Access_Key
+      #       aws configure set aws_secret_access_key $Secret_Access_Key
+      #       aws configure set default.region us-west-1 
+  # test:
+  #   docker:
+  #     - image: circleci/python:3.9
+  #     - image: hashicorp/terraform:1.0.0
+  #   steps:
+  #     - checkout
+  #     - attach_workspace
+  #     - run:
+  #         name: Terraform Init
+  #         command: terraform init
+  #         context: terraform
+  #     - run:
+  #         name: Terraform Validate
+  #         command: terraform validate
+  #         context: terraform
+  #     - run:
+  #         name: Terraform Plan
+  #         command: terraform plan
+  #         context: terraform
+
+  deploy:
+    docker:
+      - image: hashicorp/terraform:light
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Terraform Apply
+          command: terraform apply -auto-approve tfapply
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - feature
+      - hold-build:
+          filters:
+            branches:
+              only:
+                - feature
+      - deploy:
+          filters:
+            branches:
+              only:
+                - main
+          requires:
+            - hold-build
+      # - test:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - feature
+
+      # - build:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - feature
+      # - test:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
+      # - deploy:
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main
 
