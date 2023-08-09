@@ -103,5 +103,5 @@ resource "aws_iam_role" "s3_role" {
 resource "aws_iam_policy_attachment" "s3_full_access_attachment" {
   name       = var.aws_iam_policy_attachment
   policy_arn = aws_iam_policy.s3_full_access.arn
-  roles      = aws_iam_role.s3_role.name
+  roles      = [aws_iam_role.s3_role.name]
 }
