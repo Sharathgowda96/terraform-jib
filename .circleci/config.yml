@@ -52,7 +52,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - setup.sh # Example path, add other paths if needed
+            - .
 
   deploy:
     docker:
@@ -60,7 +60,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ./setup.sh
+          at: .
       - run:
           name: Terraform Init
           command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
