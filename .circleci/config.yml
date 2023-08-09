@@ -5,6 +5,7 @@ orbs:
 # Define your jobs her
 jobs:
   build:
+    working_directory: ~/project
     docker:
       - image: circleci/python:3.9
     steps:
@@ -44,9 +45,9 @@ jobs:
           context: terraform
       # Persist files for later use in deploy job
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: ~
           paths:
-            - ./terraform.tfstate   # Example path, add other paths if needed
+            - project  # Example path, add other paths if needed
 
   deploy:
     docker:
@@ -54,7 +55,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:   # Attach persisted files from build job
-          at: /tmp/workspace
+          at: ~/
       - run:
           name: Terraform Init
           command: terraform init
