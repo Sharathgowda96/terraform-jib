@@ -160,18 +160,13 @@ workflows:
             branches:
               only:
                 - feature
-      - hold-build:
-          filters:
-            branches:
-              only:
-                - feature
       - deploy:
           filters:
             branches:
               only:
                 - main
           requires:
-            - hold-build
+            - build
       # - test:
       #     filters:
       #       branches:
