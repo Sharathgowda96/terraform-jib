@@ -51,7 +51,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - terraform.tfstate # Example path, add other paths if needed
+            - setup.sh # Example path, add other paths if needed
 
   deploy:
     docker:
@@ -59,7 +59,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:   # Attach persisted files from build job
-          at: ~/
+          at: setup.sh
       - run:
           name: Terraform Init
           command: terraform init
