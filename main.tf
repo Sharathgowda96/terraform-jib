@@ -26,7 +26,7 @@ resource "aws_iam_policy" "s3_full_access" {
     },
     {
       "Effect": "Allow",
-      "Action": ["s3:PutObject", "s3:DeleteObject"],
+      "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
       "Resource": "arn:aws:s3:::testing-s3-with-terra/*"
     }
   ]
