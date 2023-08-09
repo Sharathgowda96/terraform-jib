@@ -94,7 +94,7 @@ jobs:
   build:
     working_directory: /tmp/project
     docker:
-      - image: harshicorp/terraform:light
+      - image: harshicorp/terraform:latest
     steps:
       - checkout
       - run:
@@ -108,7 +108,7 @@ jobs:
             - .
   deploy:
     docker:
-      - image: hashicorp/terraform:light
+      - image: hashicorp/terraform:latest
     steps:
       - attach_workspace:
           at: .
