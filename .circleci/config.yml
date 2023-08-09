@@ -50,7 +50,7 @@ jobs:
 
       # Persist files for later use in deploy job
       - persist_to_workspace:
-          root: ~/project
+          root: ~/terraform-jib
           paths:
             - .
   deploy:
