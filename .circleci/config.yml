@@ -81,6 +81,10 @@ jobs:
       - image: circleci/python:3.9
     steps:
       - checkout
+      - persist_to_workspace:
+          root: .
+          paths:
+            - archive
       - run:
           name: Install AWS CLI
           command: |
@@ -121,7 +125,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: workspace
       - run:
           name: Terraform Init
           command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
