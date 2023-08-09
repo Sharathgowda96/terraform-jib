@@ -59,8 +59,7 @@ jobs:
     steps:
       - checkout:
           path: ~/project
-      - attach_workspace:
-          at: ~/project/.
+      - attach_workspace: true
       - run:
           name: Set Up Dependencies
           command: |
