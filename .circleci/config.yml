@@ -44,7 +44,7 @@ jobs:
           context: terraform
       # Persist files for later use in deploy job
       - persist_to_workspace:
-          root: .
+          root: /tmp/workspace
           paths:
             - terraform.tfstate   # Example path, add other paths if needed
 
