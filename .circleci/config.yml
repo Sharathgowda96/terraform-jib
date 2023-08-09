@@ -46,7 +46,7 @@ jobs:
       - persist_to_workspace:
           root: /tmp/workspace
           paths:
-            - terraform.tfstate   # Example path, add other paths if needed
+            - ./terraform.tfstate   # Example path, add other paths if needed
 
   deploy:
     docker:
