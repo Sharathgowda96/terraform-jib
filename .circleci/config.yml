@@ -74,17 +74,18 @@
 version: 2.1
 orbs:
   terraform: circleci/terraform@1.1.0
-
+references:
+  workspace_root: &workspace_root
+    /tmp/workspace
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
 jobs:
   build:
     docker:
       - image: circleci/python:3.9
     steps:
       - checkout
-      - persist_to_workspace:
-          root: .
-          paths:
-            - archive
       - run:
           name: Install AWS CLI
           command: |
@@ -101,6 +102,7 @@ jobs:
             aws configure set default.region us-west-1 
   test:
     docker:
+      - image: circleci/python:3.9
       - image: hashicorp/terraform:1.0.0
     steps:
       - checkout
@@ -121,15 +123,11 @@ jobs:
 
   deploy:
     docker:
+      - image: circleci/python:3.9
       - image: hashicorp/terraform:1.0.0
     steps:
+      - *attach_workspace
       - checkout
-      - attach_workspace:
-          at: workspace
-      - run:
-          name: Terraform Init
-          command: terraform init -backend-config="bucket=testing-s3-with-terra" -backend-config="key=terraform.tfstate" -backend-config="region=us-east-1"
-          context: terraform
       - run:
           name: Terraform Apply
           command: terraform apply -auto-approve
