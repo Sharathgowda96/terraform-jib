@@ -58,7 +58,8 @@ jobs:
       - image: circleci/python:3.9
     steps:
       - checkout:
-          attach_workspace: true
+      - attach_workspace:
+          at: ~/terraform-jib
       - run:
           name: Set Up Dependencies
           command: |
