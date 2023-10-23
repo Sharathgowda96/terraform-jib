@@ -12,6 +12,27 @@ terraform {
   }
 }
 
+resource "aws_lambda_function" "jib-lambda" {
+  function_name = "sample-lambda"
+  handler      = "index.handler"
+  runtime      = "nodejs14.x"
+  role         = aws_iam_role.s3_role.arn
+
+  source_code_hash = filebase64sha256("${path.module}/lambda.zip")
+}
+
+resource "aws_glue_job" "jib_glue_job" {
+  name    = "glue-job"
+  role_arn = aws_iam_role.s3_role.arn
+  command {
+    name           = "glueetl"
+    script_location = "s3://your-script-location"
+  }
+  default_arguments = {
+    "--job-language" = "python"
+  }
+}
+
 resource "aws_iam_policy" "s3_full_access" {
   name = var.aws_iam_policy
 
