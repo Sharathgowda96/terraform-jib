@@ -1,3 +1,4 @@
+# varibales defined
 variable "username" {
   type    = list(any)
   default = ["terra-user", ]
