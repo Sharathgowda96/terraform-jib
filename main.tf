@@ -34,55 +34,6 @@ resource "aws_iam_policy" "s3_full_access" {
 EOF
 }
 
-# resource "aws_iam_policy" "s3_full_access" {
-#   name = var.aws_iam_policy
-
-#   policy = <<EOF
-# {
-#   "Version": "2012-10-17",
-#   "Statement": [
-#     {
-#       "Effect": "Allow",
-#       "Action": [
-#         "s3:GetObject",
-#         "s3:PutObject",
-#         "s3:DeleteObject",
-#         "s3:ListBucket"
-#       ],
-#       "Resource": [
-#         "arn:aws:s3:::testing-s3-with-terra",
-#         "arn:aws:s3:::testing-s3-with-terra/*"
-#       ]
-#     }
-#   ]
-# }
-# EOF
-# }
-
-#resource "aws_iam_policy" "s3_full_access" {
-#  name = var.aws_iam_policy
-#
-#  policy = <<EOF
-#{
-#  "Version": "2012-10-17",
-#  "Statement": [
-#    {
-#      "Effect": "Allow",
-#      "Action": [
-#        "s3:GetObject",
-#        "s3:PutObject",
-#        "s3:DeleteObject",
-#        "s3:ListBucket"
-#      ],
-#      "Resource": [
-#        "arn:aws:s3:::testing-s3-with-terra",
-#        "arn:aws:s3:::testing-s3-with-terra/*"
-#      ]
-#    }
-#  ]
-#}
-#EOF
-#}
 
 resource "aws_iam_role" "s3_role" {
   name = var.aws_iam_role
