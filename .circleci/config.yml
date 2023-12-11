@@ -39,3 +39,25 @@ workflows:
             branches:
               only:
                 - main
+
+  build-and-test:
+    docker:
+      - image: circleci/python:3.9  # Choose an appropriate Docker image with your desired environment.
+    steps:
+      - checkout  # Check out the code from the repository
+      - run:
+          name: Run tests
+          command: python3 hello.py  # Replace with the command to run your tests
+
+
+workflows:
+  version: 2
+  feature-branch-workflow:
+    jobs:
+      - build-and-test:
+          filters:
+            branches:
+              only:
+                - feature  # Replace with the name of your feature branch.
+
+
